@@ -141,7 +141,7 @@ func TestHandshakeToEncryptDecryptRoundTrip(t *testing.T) {
 	encryptor := crypto.NewFieldEncryptor(session.SessionKey)
 	encFields, err := encryptor.EncryptFields(&fle.EncryptRequest{
 		Method: "POST", Path: "/api/v1/test",
-		Fields: map[string]any{"name": "John"},
+		Fields:        map[string]any{"name": "John"},
 		CryptoVersion: "enc:v1", CryptoSessionID: result.SessionID,
 		RequestID: "req-rt", TenantID: "default",
 	})
@@ -152,7 +152,7 @@ func TestHandshakeToEncryptDecryptRoundTrip(t *testing.T) {
 	decryptor := crypto.NewFieldDecryptor(session.SessionKey)
 	decrypted, err := decryptor.DecryptFields(&fle.DecryptRequest{
 		Method: "POST", Path: "/api/v1/test",
-		Fields: encFields,
+		Fields:        encFields,
 		CryptoVersion: "enc:v1", CryptoSessionID: result.SessionID,
 		RequestID: "req-rt", TenantID: "default",
 	})
@@ -187,7 +187,7 @@ func TestDecryptServiceReplayDetection(t *testing.T) {
 	encryptor := crypto.NewFieldEncryptor(session.SessionKey)
 	encFields, _ := encryptor.EncryptFields(&fle.EncryptRequest{
 		Method: "POST", Path: "/api/v1/test",
-		Fields: map[string]any{"secret": "value"},
+		Fields:        map[string]any{"secret": "value"},
 		CryptoVersion: "enc:v1", CryptoSessionID: result.SessionID,
 		RequestID: "req-replay", TenantID: "default",
 	})
@@ -195,7 +195,7 @@ func TestDecryptServiceReplayDetection(t *testing.T) {
 	decSvc := NewDecryptService(resolver, sessionStore, replayProtector)
 	decryptReq := &fle.DecryptRequest{
 		Method: "POST", Path: "/api/v1/test",
-		Fields: encFields,
+		Fields:        encFields,
 		CryptoVersion: "enc:v1", CryptoSessionID: result.SessionID,
 		RequestID: "req-replay", TenantID: "default",
 	}

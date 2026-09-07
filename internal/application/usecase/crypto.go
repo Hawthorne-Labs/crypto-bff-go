@@ -10,8 +10,8 @@ import (
 
 // DecryptService handles field decryption.
 type DecryptService struct {
-	policyResolver *crypto.PolicyResolver
-	sessionStore   crypto.SessionStore
+	policyResolver  *crypto.PolicyResolver
+	sessionStore    crypto.SessionStore
 	replayProtector crypto.ReplayProtector
 }
 

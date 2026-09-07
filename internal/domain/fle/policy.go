@@ -4,21 +4,21 @@ import "time"
 
 // CryptoPolicy defines the cryptographic parameters for a version.
 type CryptoPolicy struct {
-	CryptoVersion       string
-	Mode                string
-	KeyAgreement        string
-	KDF                 string
-	KDFInfo             []byte
-	Cipher              string
-	NonceSize           int
-	TagSize             int
-	Encoding            string
-	AADStrategy         string
-	KeyID               string
-	SessionTTLSeconds   int
+	CryptoVersion        string
+	Mode                 string
+	KeyAgreement         string
+	KDF                  string
+	KDFInfo              []byte
+	Cipher               string
+	NonceSize            int
+	TagSize              int
+	Encoding             string
+	AADStrategy          string
+	KeyID                string
+	SessionTTLSeconds    int
 	TimestampSkewSeconds int
-	Enabled             bool
-	ExpiresAt           *time.Time
+	Enabled              bool
+	ExpiresAt            *time.Time
 }
 
 // DefaultPolicies returns the supported crypto policies.

@@ -9,16 +9,16 @@ import (
 
 // Settings holds all application configuration.
 type Settings struct {
-	Port                    int
-	OTELServiceName         string
-	SessionStoreMaxEntries  int
-	ReplayTTLSeconds        int
-	ReplayMaxEntries        int
-	InternalJWTSecret       string
-	InternalJWTAudience     string
-	FLEPrivateKeyB64        string
+	Port                     int
+	OTELServiceName          string
+	SessionStoreMaxEntries   int
+	ReplayTTLSeconds         int
+	ReplayMaxEntries         int
+	InternalJWTSecret        string
+	InternalJWTAudience      string
+	FLEPrivateKeyB64         string
 	CryptoSessionTokenSecret string
-	CryptoTenantDigestKey   string
+	CryptoTenantDigestKey    string
 }
 
 // Load reads configuration from environment variables.
@@ -54,16 +54,16 @@ func Load() (*Settings, error) {
 	}
 
 	return &Settings{
-		Port:                    port,
-		OTELServiceName:         envOrDefault("OTEL_SERVICE_NAME", "crypto-bff"),
-		SessionStoreMaxEntries:  sessionMax,
-		ReplayTTLSeconds:        replayTTL,
-		ReplayMaxEntries:        replayMax,
-		InternalJWTSecret:       os.Getenv("INTERNAL_JWT_SECRET"),
-		InternalJWTAudience:     envOrDefault("INTERNAL_JWT_AUDIENCE", "crypto-bff"),
-		FLEPrivateKeyB64:        os.Getenv("FLE_PRIVATE_KEY_B64"),
+		Port:                     port,
+		OTELServiceName:          envOrDefault("OTEL_SERVICE_NAME", "crypto-bff"),
+		SessionStoreMaxEntries:   sessionMax,
+		ReplayTTLSeconds:         replayTTL,
+		ReplayMaxEntries:         replayMax,
+		InternalJWTSecret:        os.Getenv("INTERNAL_JWT_SECRET"),
+		InternalJWTAudience:      envOrDefault("INTERNAL_JWT_AUDIENCE", "crypto-bff"),
+		FLEPrivateKeyB64:         os.Getenv("FLE_PRIVATE_KEY_B64"),
 		CryptoSessionTokenSecret: os.Getenv("CRYPTO_SESSION_TOKEN_SECRET"),
-		CryptoTenantDigestKey:   os.Getenv("CRYPTO_TENANT_DIGEST_KEY"),
+		CryptoTenantDigestKey:    os.Getenv("CRYPTO_TENANT_DIGEST_KEY"),
 	}, nil
 }
 

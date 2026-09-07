@@ -10,8 +10,8 @@ import (
 )
 
 const (
-	NonceSize = 12
-	TagSize   = 16
+	NonceSize     = 12
+	TagSize       = 16
 	MinValueBytes = NonceSize + TagSize
 )
 

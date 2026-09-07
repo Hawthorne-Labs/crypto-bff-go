@@ -14,12 +14,12 @@ type CryptoSession struct {
 
 // HandshakeResult contains the data returned after a successful handshake.
 type HandshakeResult struct {
-	SessionID            string
-	TenantID             string
-	ExpiresAtEpoch       time.Time
+	SessionID             string
+	TenantID              string
+	ExpiresAtEpoch        time.Time
 	ServerPublicKeyB64URL string
-	SaltB64URL           string
-	AccessToken          string
+	SaltB64URL            string
+	AccessToken           string
 }
 
 // DecryptRequest contains the parameters for field decryption.

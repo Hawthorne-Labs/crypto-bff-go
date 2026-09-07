@@ -7,11 +7,12 @@ import (
 	"fmt"
 	"time"
 
+	"crypto/sha256"
+	"io"
+
 	"github.com/Hawthorne-Labs/crypto-bff-go/internal/domain/fle"
 	"github.com/Hawthorne-Labs/crypto-bff-go/internal/infrastructure/crypto"
 	"golang.org/x/crypto/hkdf"
-	"io"
-	"crypto/sha256"
 )
 
 const (
