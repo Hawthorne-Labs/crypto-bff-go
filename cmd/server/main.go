@@ -4,6 +4,7 @@ package main
 import (
 	"context"
 	"encoding/base64"
+	"flag"
 	"fmt"
 	"log/slog"
 	"net/http"
@@ -18,7 +19,24 @@ import (
 	"github.com/Hawthorne-Labs/crypto-bff-go/internal/interface/api"
 )
 
+var healthMode = flag.Bool("health-check", false, "run health check against running server and exit")
+
 func main() {
+	flag.Parse()
+
+	if *healthMode {
+		settings, err := config.Load()
+		if err != nil {
+			os.Exit(1)
+		}
+		resp, err := http.Get(fmt.Sprintf("http://127.0.0.1:%d/health", settings.Port))
+		if err != nil || resp.StatusCode != http.StatusOK {
+			os.Exit(1)
+		}
+		resp.Body.Close()
+		os.Exit(0)
+	}
+
 	// Load configuration
 	settings, err := config.Load()
 	if err != nil {
