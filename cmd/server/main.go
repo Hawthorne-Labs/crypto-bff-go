@@ -16,6 +16,7 @@ import (
 	"github.com/Hawthorne-Labs/crypto-bff-go/internal/application/usecase"
 	"github.com/Hawthorne-Labs/crypto-bff-go/internal/infrastructure/config"
 	"github.com/Hawthorne-Labs/crypto-bff-go/internal/infrastructure/crypto"
+	"github.com/Hawthorne-Labs/crypto-bff-go/internal/infrastructure/secrets"
 	"github.com/Hawthorne-Labs/crypto-bff-go/internal/interface/api"
 )
 
@@ -46,8 +47,18 @@ func main() {
 
 	// Initialize key provider
 	var keyProvider crypto.KeyProvider
-	if settings.FLEPrivateKeyB64 != "" {
-		keyBytes, err := base64.StdEncoding.DecodeString(settings.FLEPrivateKeyB64)
+	fleKeyB64 := settings.FLEPrivateKeyB64
+	if fleKeyB64 == "" && settings.FLEKeysSecretARN != "" {
+		loaded, err := secrets.LoadFLEPrivateKeyFromSecretsManager(context.Background(), settings.FLEKeysSecretARN)
+		if err != nil {
+			slog.Error("failed to load FLE key from Secrets Manager", slog.String("error", err.Error()))
+			os.Exit(1)
+		}
+		fleKeyB64 = loaded
+		slog.Info("loaded FLE key from Secrets Manager")
+	}
+	if fleKeyB64 != "" {
+		keyBytes, err := base64.StdEncoding.DecodeString(fleKeyB64)
 		if err != nil {
 			slog.Error("failed to decode FLE private key", slog.String("error", err.Error()))
 			os.Exit(1)
@@ -66,7 +77,7 @@ func main() {
 			os.Exit(1)
 		}
 		keyProvider = crypto.NewStaticKeyProvider(privKey)
-		slog.Warn("using ephemeral FLE key - set FLE_PRIVATE_KEY_B64 for production")
+		slog.Warn("using ephemeral FLE key - set FLE_PRIVATE_KEY_B64 or FLE_KEYS_SECRET_ARN for production")
 	}
 
 	// Initialize stores

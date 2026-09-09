@@ -17,6 +17,7 @@ type Settings struct {
 	InternalJWTSecret        string
 	InternalJWTAudience      string
 	FLEPrivateKeyB64         string
+	FLEKeysSecretARN         string
 	CryptoSessionTokenSecret string
 	CryptoTenantDigestKey    string
 }
@@ -62,6 +63,7 @@ func Load() (*Settings, error) {
 		InternalJWTSecret:        os.Getenv("INTERNAL_JWT_SECRET"),
 		InternalJWTAudience:      envOrDefault("INTERNAL_JWT_AUDIENCE", "crypto-bff"),
 		FLEPrivateKeyB64:         os.Getenv("FLE_PRIVATE_KEY_B64"),
+		FLEKeysSecretARN:         envOrDefault("FLE_KEYS_SECRET_ARN", os.Getenv("FLE_KEYS_SECRET_NAME")),
 		CryptoSessionTokenSecret: os.Getenv("CRYPTO_SESSION_TOKEN_SECRET"),
 		CryptoTenantDigestKey:    os.Getenv("CRYPTO_TENANT_DIGEST_KEY"),
 	}, nil
